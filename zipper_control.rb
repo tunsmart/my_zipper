@@ -17,7 +17,8 @@ class ZipFileGenerator
 
     writeEntries(entries, "", io)
     io.close();
-    puts "Compression Done, check your files at #{@outputFile}"
+    output_directory = File.dirname(@outputFile)
+    puts "Compression Done, check your files at #{output_directory}"
   end
 
   # A helper method to make the recursion work.
@@ -27,7 +28,7 @@ class ZipFileGenerator
     entries.each { |e|
       zipFilePath = path == "" ? e : File.join(path, e)
       diskFilePath = File.join(@inputDir, zipFilePath)
-      puts "Deflating " + diskFilePath
+      puts "Compressing " + diskFilePath
       if  File.directory?(diskFilePath)
         io.mkdir(zipFilePath)
         subdir =Dir.entries(diskFilePath); subdir.delete("."); subdir.delete("..")
